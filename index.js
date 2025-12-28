@@ -32,6 +32,7 @@ async function run() {
     const courseCollection = client
       .db("courseMake")
       .collection("courseService");
+    const checkOutCollection = client.db("checkOutUser").collection("checkOut");
 
     app.get("/courseService", async (req, res) => {
       const course = courseCollection.find();
@@ -42,6 +43,12 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await courseCollection.findOne(query);
+      res.send(result);
+    });
+
+    app.post("/checkOut", async (req, res) => {
+      const checkOut = req.body;
+      const result = await checkOutCollection.insertOne(checkOut);
       res.send(result);
     });
     // Send a ping to confirm a successful connection
