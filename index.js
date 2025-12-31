@@ -51,6 +51,20 @@ async function run() {
       const result = await checkOutCollection.insertOne(checkOut);
       res.send(result);
     });
+
+    app.get("/checkOut", async (req, res) => {
+      console.log(req.query.email);
+      // if (req.query?.email !== req.user.email) {
+      //   return res.status(404).send({ massage: "forbidden access" });
+      // }
+
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query?.email };
+      }
+      const result = await checkOutCollection.find(query).toArray();
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
