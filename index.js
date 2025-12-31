@@ -30,9 +30,9 @@ async function run() {
     await client.connect();
 
     const courseCollection = client
-      .db("courseMake")
+      .db("groupStudy")
       .collection("courseService");
-    const checkOutCollection = client.db("checkOutUser").collection("checkOut");
+    const checkOutCollection = client.db("groupStudy").collection("checkOut");
 
     app.get("/courseService", async (req, res) => {
       const course = courseCollection.find();
